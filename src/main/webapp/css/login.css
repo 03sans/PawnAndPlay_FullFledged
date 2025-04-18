@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #2E3A31;
+  color: #1F1F1F;
+}
+
+header {
+  background-color: #EFE7DA;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #2E3A31;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav .login-link {
+  font-weight: bold;
+}
+
+.login-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px;
+  background-color: #2E3A31;
+}
+
+.login-box {
+  background-color: #EFE7DA;
+  padding: 40px;
+  border-radius: 4px;
+  width: 40%;
+}
+
+.login-box h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-box label {
+  display: block;
+  margin: 10px 0 5px;
+  letter-spacing: 2px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  background-color: #2E3A31;
+  color: white;
+}
+
+.login-btn, .signup-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #2E3A31;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  font-family: 'Georgia', serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.or {
+  text-align: center;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.login-image {
+  text-align: center;
+  width: 55%;
+  color: #EFE7DA;
+}
+
+.board-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-family: 'Georgia', serif;
+}
+
+.board-text em {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 24px;
+  display: block;
+  margin-top: 5px;
+}
+
+.login-image img {
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+footer {
+  background-color: #EFE7DA;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-right span {
+  margin-right: 10px;
+}
+
+.footer-right img {
+  width: 20px;
+  margin-left: 10px;
+}

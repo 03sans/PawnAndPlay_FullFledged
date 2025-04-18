@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    font-family: 'SortsMillGoudy', serif;
+    background-color: #e7e1d6;
+}
+
+#header {
+    background-color: #e7e1d6;
+    padding: 10px 40px;
+    border-bottom: 1px solid #d4cdc1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    height: 48px;
+    margin-right: 10px;
+}
+
+.brand-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2f3831;
+    letter-spacing: 2px;
+}
+
+.main-nav {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #2f3831;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.main-nav li a:hover {
+    color: #4e5e4e;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+}
+
+.login-link {
+    text-decoration: none;
+    font-size: 18px;
+    color: #2f3831;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #2f3831;
+    cursor: pointer;
+    font-family: 'SortsMillGoudy', serif;
+}
+
+.logout-button:hover {
+    color: #4e5e4e;
+}
