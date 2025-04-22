@@ -4,7 +4,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #ded7c9;
+        background-color: #DDD6C9;
         padding: 10px 40px;
         font-family: 'SortsMillGoudy', serif;
         font-size: 14px;
@@ -12,7 +12,7 @@
     }
 
     .footer-left {
-        color: #2b322b;
+        color: #334137;
         letter-spacing: 2px;
     }
 
@@ -20,7 +20,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #2b322b;
+        color: #334137;
         font-weight: normal;
         letter-spacing: 2px;
     }

@@ -9,19 +9,11 @@ import com.pawnandplay.config.DbConfig;
 import com.pawnandplay.model.UserModel;
 import com.pawnandplay.util.PasswordUtil;
 
-/**
- * Service class for handling login operations. Connects to the database,
- * verifies user credentials, and returns login status.
- */
 public class LoginService {
-
+	
 	private Connection dbConn;
 	private boolean isConnectionError = false;
-
-	/**
-	 * Constructor initializes the database connection. Sets the connection error
-	 * flag if the connection fails.
-	 */
+	
 	public LoginService() {
 		try {
 			dbConn = DbConfig.getDbConnection();
@@ -30,21 +22,14 @@ public class LoginService {
 			isConnectionError = true;
 		}
 	}
-
-	/**
-	 * Validates the user credentials against the database records.
-	 *
-	 * @param studentModel the StudentModel object containing user credentials
-	 * @return true if the user credentials are valid, false otherwise; null if a
-	 *         connection error occurs
-	 */
+	
 	public Boolean loginUser(UserModel userModel) {
 		if (isConnectionError) {
 			System.out.println("Connection Error!");
 			return null;
 		}
 
-		String query = "SELECT userName, password FROM User WHERE userName = ?";
+		String query = "SELECT username, password FROM User WHERE username = ?";
 		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
 			stmt.setString(1, userModel.getUsername());
 			ResultSet result = stmt.executeQuery();
@@ -59,26 +44,20 @@ public class LoginService {
 
 		return false;
 	}
-
-	/**
-	 * Validates the password retrieved from the database.
-	 *
-	 * @param result       the ResultSet containing the username and password from
-	 *                     the database
-	 * @param studentModel the StudentModel object containing user credentials
-	 * @return true if the passwords match, false otherwise
-	 * @throws SQLException if a database access error occurs
-	 */
+	
 	private boolean validatePassword(ResultSet result, UserModel userModel) throws SQLException {
 		String dbUsername = result.getString("username");
 		String dbPassword = result.getString("password");
 		
-		System.out.println(dbUsername);
-		System.out.println(dbPassword);
-		System.out.println(PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword()));
+		String decryptedPassword = PasswordUtil.decrypt(dbPassword, dbUsername);
 		
+		System.out.println("DB Username: " + dbUsername);
+		System.out.println("Encrypted Password: " + dbPassword);
+		System.out.println("Decrypted Password: " + decryptedPassword);
+		System.out.println("User Input Password: " + userModel.getPassword());
 
 		return dbUsername.equals(userModel.getUsername())
-				&& PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword());
+				&& decryptedPassword != null
+				&& decryptedPassword.equals(userModel.getPassword());
 	}
 }

@@ -1,82 +1,49 @@
 @charset "UTF-8";
 
-body {
-    margin: 0;
-    font-family: 'SortsMillGoudy', serif;
-    background-color: #e7e1d6;
-}
-
-#header {
-    background-color: #e7e1d6;
-    padding: 10px 40px;
-    border-bottom: 1px solid #d4cdc1;
-}
-
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1300px;
-    margin: 0 auto;
+    background-color: #DDD6C9;
+    padding: 10px 40px;
+    font-family: 'SortsMillGoudy', serif;
+    border-bottom: 2px solid #2b322b;
 }
 
-.logo-title {
+.logo {
     display: flex;
     align-items: center;
-}
-
-.logo-icon {
-    height: 48px;
-    margin-right: 10px;
-}
-
-.brand-name {
-    font-size: 22px;
-    font-weight: bold;
-    color: #2f3831;
+    gap: 10px;
+    color: #334137;
+    font-size: 20px;
     letter-spacing: 2px;
 }
 
-.main-nav {
-    list-style: none;
-    display: flex;
-    gap: 40px;
-    padding: 0;
-    margin: 0;
+.logo-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
-.main-nav li a {
-    text-decoration: none;
-    font-size: 18px;
-    color: #2f3831;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
+.brand {
+    font-weight: bold;
 }
 
-.main-nav li a:hover {
-    color: #4e5e4e;
-}
-
-.auth-nav {
+.nav-links {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-.login-link {
+.nav-item {
     text-decoration: none;
-    font-size: 18px;
-    color: #2f3831;
+    color: #334137;
+    font-size: 14px;
+    letter-spacing: 2px;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.logout-button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #2f3831;
-    cursor: pointer;
-    font-family: 'SortsMillGoudy', serif;
-}
-
-.logout-button:hover {
-    color: #4e5e4e;
+.nav-item:hover {
+    color: #1f2620;
+    transform: scale(1.05);
 }

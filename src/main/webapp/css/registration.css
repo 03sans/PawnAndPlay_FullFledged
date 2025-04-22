@@ -1,120 +1,102 @@
-@charset "UTF-8"
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Georgia', serif;
-  background-color: #2E3A31;
-  color: #EFE7DA;
+  margin: 0;
+  font-family: 'SortsMillGoudy', serif;
+  background-color: #334137;
+  color: #f2ebdf;
 }
 
-.header {
-    background-color: #EFE7DA;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.registration-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
 }
 
-.logo {
-    height: 50px;
+.registration-box {
+  background-color: #f2ebdf;
+  color: #334137;
+  padding: 2rem 3rem;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  margin-bottom: 2rem;
 }
 
-.nav a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #2E3A31;
-    font-size: 18px;
-    letter-spacing: 1px;
+.registration-box h1 {
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  text-align: center;
 }
 
-.nav a.active, .nav a:hover {
-    text-decoration: underline;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.form-container {
-    background-color: #EFE7DA;
-    margin: 60px auto;
-    padding: 40px 60px;
-    max-width: 1000px;
-    text-align: center;
+.form-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.form-container h2 {
-    font-size: 20px;
-    letter-spacing: 1.5px;
-    margin-bottom: 30px;
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px 40px;
-    margin-bottom: 30px;
-    text-align: left;
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-.form-grid label {
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 1px;
+.form-group input {
+  padding: 0.6rem;
+  font-size: 1rem;
+  background-color: #334137;
+  color: #f2ebdf;
+  border: none;
+  border-radius: 4px;
 }
 
-.form-grid input {
-    width: 100%;
-    padding: 10px;
-    font-family: 'Georgia', serif;
-    font-size: 14px;
-    background-color: #2E3A31;
-    color: #EFE7DA;
-    border: none;
-    outline: none;
+.form-group input::placeholder {
+  color: #f2ebdf;
 }
 
-.login-btn {
-    padding: 12px 40px;
-    background-color: #2E3A31;
-    color: #EFE7DA;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    font-family: 'Georgia', serif;
+.form-button {
+  text-align: center;
 }
 
-.chess-row {
-    margin-top: 30px;
+.form-button button {
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  background-color: #334137;
+  color: #f2ebdf;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.chess-row img {
-    height: 50px;
+.form-button button:hover {
+  background-color: #2b3630;
 }
 
-.footer {
-    background-color: #EFE7DA;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #2E3A31;
-    font-size: 14px;
+.chess-image {
+  width: 100%;
+  margin-top: 2rem;
 }
 
-.footer-center {
-    font-size: 15px;
-    font-style: italic;
+.slogan-footer {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #CBB9A6;
+  font-size: 1.1rem;
 }
 
-.footer-right span {
-    margin-right: 10px;
-}
-
-.footer-right img {
-    height: 20px;
-    margin-left: 10px;
+.dice-image {
+  margin-top: 1rem;
+  width: 120px;
 }

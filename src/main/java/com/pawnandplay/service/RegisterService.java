@@ -8,45 +8,46 @@ import com.pawnandplay.config.DbConfig;
 import com.pawnandplay.model.UserModel;
 
 public class RegisterService {
-	private Connection dbConn;
+    private Connection dbConn;
 
-	/**
-	 * Constructor initializes the database connection.
-	 */
-	public RegisterService() {
-		try {
-			this.dbConn = DbConfig.getDbConnection();
-		} catch (SQLException | ClassNotFoundException ex) {
-			System.err.println("Database connection error: " + ex.getMessage());
-			ex.printStackTrace();
-		}
-	}
-	
-	public Boolean addUser(UserModel userModel) {
-		if (dbConn == null) {
-			System.err.println("Database connection is not available.");
-			return null;
-		}
+    public RegisterService() {
+        try {
+            this.dbConn = DbConfig.getDbConnection();
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.err.println("Database connection error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 
-		String insertQuery = "INSERT INTO User (firstName, lastName, username, email, phone, dob, password)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public Boolean addUser(UserModel userModel) {
+    	System.out.println(10);
+        if (dbConn == null) {
+            System.err.println("Database connection is not available.");
+            return null;
+        }
+        
+        String insertQuery = "INSERT INTO User (firstName, lastName, username, email, phone, dob, password) " +
+                           "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		try(PreparedStatement insertStmt = dbConn.prepareStatement(insertQuery)) {
+        try (PreparedStatement insertStmt = dbConn.prepareStatement(insertQuery)) {
+        	System.out.println(11);
 
-			// Insert user details
-			insertStmt.setString(1, userModel.getFirstName());
-			insertStmt.setString(2, userModel.getLastName());
-			insertStmt.setString(3, userModel.getUsername());
-			insertStmt.setString(4, userModel.getEmail());
-			insertStmt.setString(5, userModel.getNumber());
-			insertStmt.setDate(6, Date.valueOf(userModel.getDob()));
-			insertStmt.setString(7, userModel.getPassword());
+            insertStmt.setString(1, userModel.getFirstName());
+            insertStmt.setString(2, userModel.getLastName());
+            insertStmt.setString(3, userModel.getUsername());
+            insertStmt.setString(4, userModel.getEmail());
+            insertStmt.setString(5, userModel.getNumber());
+            insertStmt.setDate(6, Date.valueOf(userModel.getDob()));
+            insertStmt.setString(7, userModel.getPassword());
 
-			return insertStmt.executeUpdate() > 0;
-		} catch (SQLException e) {
-			System.err.println("Error during student registration: " + e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
+            return insertStmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error during registration: " + e.getMessage());
+            // Check for duplicate username/email
+            if (e.getMessage().contains("Duplicate entry")) {
+                return false;
+            }
+            return null;
+        }
+    }
 }

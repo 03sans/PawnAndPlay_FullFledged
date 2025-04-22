@@ -8,33 +8,9 @@
 
 body {
   margin: 0;
-  font-family: 'Georgia', serif;
-  background-color: #2E3A31;
+  font-family: 'SortsMillGoudy', serif;
+  background-color: #334137;
   color: #1F1F1F;
-}
-
-header {
-  background-color: #EFE7DA;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-nav a {
-  margin: 0 15px;
-  color: #2E3A31;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-nav .login-link {
-  font-weight: bold;
 }
 
 .login-main {
@@ -113,27 +89,4 @@ nav .login-link {
   width: 90%;
   max-width: 500px;
   border-radius: 8px;
-}
-
-footer {
-  background-color: #EFE7DA;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-
-.footer-right {
-  display: flex;
-  align-items: center;
-}
-
-.footer-right span {
-  margin-right: 10px;
-}
-
-.footer-right img {
-  width: 20px;
-  margin-left: 10px;
 }

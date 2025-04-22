@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    @font-face {
+  font-family: 'SortsMillGoudy';
+  src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+}</style>
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
@@ -18,16 +24,18 @@
   <main class="login-main">
     <section class="login-box">
       <h1>WELCOME BACK!</h1>
-      <form>
-        <label>USERNAME:</label>
-        <input type="text" name="username" required>
-        <label>PASSWORD:</label>
-        <input type="password" name="password" required>
+      <form action="${pageContext.request.contextPath}/login" method="post">
+    <label>USERNAME:</label>
+    <input type="text" name="username" required>
+    <label>PASSWORD:</label>
+    <input type="password" name="password" required>
 
-        <button type="submit" class="login-btn">LOGIN</button>
-        <p class="or">OR</p>
+    <button type="submit" class="login-btn">LOGIN</button>
+    <p class="or">OR</p>
+    <a href="${pageContext.request.contextPath}/registration">
         <button type="button" class="signup-btn">SIGN UP</button>
-      </form>
+    </a>
+</form>
     </section>
 
     <section class="login-image">
