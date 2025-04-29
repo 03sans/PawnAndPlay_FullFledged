@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+ @font-face {
+            font-family: 'SortsMillGoudy';
+            src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+        }
+  @font-face {
+            font-family: 'AlexBrush-Regular';
+            src: url('${pageContext.request.contextPath}/resources/fonts/AlexBrush-Regular.ttf') format('truetype');
+        }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'SortsMillGoudy', serif;
+  background-color: #334137;
+  color: #DDD6C9;
+}
+
+.contact-page {
+    padding: 40px 60px;
+}
+
+.contact-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    background-color: #334137;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.team-section,
+.feedback-section {
+    flex: 1;
+}
+
+/* Fix team members side by side */
+.team-members {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.member {
+    background-color: #f0e9dd;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 220px; /* fixed width to keep nice */
+}
+
+.member img {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.member h3 {
+    margin: 10px 0 5px;
+    font-size: 1.5rem;
+    color: #3e4a3c;
+}
+
+.member .email,
+.member .phone,
+.member .desc {
+    color: #3e4a3c;
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #f0e9dd;
+    margin-bottom: 20px;
+}
+
+/* Feedback Form */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0e9dd;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.feedback-form label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #3e4a3c;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Georgia', serif;
+}
+
+.feedback-form .submit-btn {
+    background-color: #3e4a3c;
+    color: #f0e9dd;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+    font-size: 1rem;
+}
+
+.feedback-form .submit-btn:hover {
+    background-color: #2d3629;
+}
+
+/* Location Section separately at bottom */
+.location-section {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+}
+
+.location-title {
+    color: #DDD6C9;
+}
+
+.location-box {
+    background-color: #f0e9dd;
+    border: 1px solid #3e4a3c;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    border-radius: 8px;
+    color: #3e4a3c;
+    font-size: 1rem;
+}

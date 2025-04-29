@@ -40,7 +40,8 @@ if (currentUser != null) {
     <nav class="nav-links">
         <a href="${pageContext.request.contextPath}/home.jsp" class="nav-item">HOME</a>
         <a href="${pageContext.request.contextPath}/products.jsp" class="nav-item">PRODUCTS</a>
-        <a href="${pageContext.request.contextPath}/about.jsp" class="nav-item">ABOUT</a>
+        <a href="${pageContext.request.contextPath}/about" class="nav-item">ABOUT</a>
+        <a href="${pageContext.request.contextPath}/contact" class="nav-item">CONTACT</a>
         <a href="${pageContext.request.contextPath}/login.jsp" class="nav-item login-link">LOGIN</a>
     </nav>
 </header>

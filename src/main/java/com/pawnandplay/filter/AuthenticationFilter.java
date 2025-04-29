@@ -19,10 +19,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthenticationFilter implements Filter {
 
 	private static final String LOGIN = "/login";
-	private static final String REGISTER = "/registration";
+	private static final String REGISTRATION = "/registration";
 	private static final String HOME = "/home";
 	private static final String ROOT = "/";
 	private static final String ABOUT = "/about";
+	private static final String CONTACT = "/contact";
+	private static final String DASHBOARD = "/dashboard";
+	private static final String PROFILE = "/profile";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -39,43 +42,45 @@ public class AuthenticationFilter implements Filter {
 		// Get the requested URI
 		String uri = req.getRequestURI();
 
-		if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(".css") || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(".ttf") || uri.endsWith(".png") || uri.endsWith(".jpeg")) {
+		if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION) || uri.endsWith(".css") || 
+				uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(".ttf") || uri.endsWith(".png") || 
+				uri.endsWith(".jpeg")||uri.endsWith(".jpg")|| uri.endsWith(PROFILE)) {
 			chain.doFilter(request, response);
 			return;
 		}
-		
+	
 		// Get the session and check if user is logged in
 		boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
 		String userRole = CookiesUtil.getCookie(req, "Role") != null ? CookiesUtil.getCookie(req, "Role").getValue()
 				: null;
 		System.out.println(1);
 
-		if ("admin".equals(userRole)) {
+		if (isLoggedIn && "admin".equals(userRole)) {
 			// Admin is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				res.sendRedirect(req.getContextPath() + HOME);
-				System.out.println(2);
-			} else if (uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
+				res.sendRedirect(req.getContextPath() + DASHBOARD);
+			} else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)|| uri.endsWith(ABOUT)|| uri.endsWith(CONTACT)) {
 				chain.doFilter(request, response);
+			//} else if (uri.endsWith(ORDER_LIST) || uri.endsWith(CART_LIST)) {
+				//res.sendRedirect(req.getContextPath() + DASHBOARD);
 			} else {
-				System.out.println(3);
-				res.sendRedirect(req.getContextPath() + HOME);
+				res.sendRedirect(req.getContextPath() + DASHBOARD);
 			}
-		} else if ("customer".equals(userRole)) {
-			System.out.println(4);
-			// User is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+		} else if (isLoggedIn && "customer".equals(userRole)) {
+			// Customer is logged in
+			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
 				res.sendRedirect(req.getContextPath() + HOME);
-				System.out.println(5);
-			} else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT)) {
-				System.out.println(6);
+			} else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT)|| uri.endsWith(CONTACT) || uri.endsWith(PROFILE)) {
 				chain.doFilter(request, response);
+			//} else if (uri.endsWith(DASHBOARD) || uri.endsWith(MODIFY_STUDENTS) || uri.endsWith(STUDENT_UPDATE)
+					//|| uri.endsWith(ADMIN_ORDER)) {
+				res.sendRedirect(req.getContextPath() + HOME);
 			} else {
 				res.sendRedirect(req.getContextPath() + HOME);
 			}
 		} else {
 			// Not logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT)|| uri.endsWith(CONTACT)) {
 				chain.doFilter(request, response);
 			} else {
 				res.sendRedirect(req.getContextPath() + LOGIN);

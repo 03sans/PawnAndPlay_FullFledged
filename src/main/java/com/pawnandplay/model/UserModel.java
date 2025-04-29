@@ -11,10 +11,11 @@ public class UserModel {
 	private String number;
 	private LocalDate dob;
 	private String password;
+	private String image;
 	
 	public UserModel() {}
 	
-	public UserModel(String firstName, String lastName, String username, String email, String number, LocalDate dob, String password) {
+	public UserModel(String firstName, String lastName, String username, String email, String number, LocalDate dob, String password,String image) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -23,6 +24,8 @@ public class UserModel {
 		this.username = username;
 		this.dob = dob;
 		this.password = password;
+		this.image = image;
+		
 	}
 	
 	public UserModel(String username, String password) {
@@ -31,7 +34,7 @@ public class UserModel {
 	}
 
 	public UserModel(String id, String firstName, String lastName, String userName, String email, String number, LocalDate dob,
-			String password) {
+			String password, String image) {
 		super();
 		this.userId = id;
 		this.firstName = firstName;
@@ -41,6 +44,7 @@ public class UserModel {
 		this.number = number;
 		this.dob = dob;
 		this.password = password;
+		this.image = image;
 	}
 
 	public String getUserId() {
@@ -106,6 +110,14 @@ public class UserModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

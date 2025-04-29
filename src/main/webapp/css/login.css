@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+@font-face {
+            font-family: 'SortsMillGoudy';
+            src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'AlexBrush-Regular';
+            src: url('${pageContext.request.contextPath}/resources/fonts/AlexBrush-Regular.ttf') format('truetype');
+        }
+
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +25,7 @@ body {
 .login-main {
   display: flex;
   justify-content: space-between;
-  padding: 60px;
+  padding: 52px;
   background-color: #2E3A31;
 }
 
@@ -29,12 +38,12 @@ body {
 
 .login-box h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .login-box label {
   display: block;
-  margin: 10px 0 5px;
+  margin: 40px 0 20px;
   letter-spacing: 2px;
 }
 
@@ -47,22 +56,30 @@ body {
   color: white;
 }
 
-.login-btn, .signup-btn {
+.login-btn,
+.signup-btn {
   display: block;
-  width: 100%;
-  padding: 10px;
+  width: 200px; /* or use fit-content if text-based sizing is preferred */
+  padding: 10px 20px;
   background-color: #2E3A31;
   color: white;
   border: none;
-  margin-top: 10px;
-  font-family: 'Georgia', serif;
+  border-radius: 25px; /* Rounded edges */
+  margin: 30px auto; /* centers the button horizontally */
+  font-family: 'SortsMillGoudy', serif;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: #253029;
 }
 
 .or {
   text-align: center;
-  font-style: italic;
+  font-family: 'AlexBrush-Regular', cursive;
   margin: 10px 0;
 }
 
@@ -73,13 +90,13 @@ body {
 }
 
 .board-text {
-  font-size: 18px;
+  font-size: 30px;
   margin-bottom: 20px;
-  font-family: 'Georgia', serif;
+  font-family: 'SortsMillGoudy', serif;
 }
 
 .board-text em {
-  font-family: 'Brush Script MT', cursive;
+  font-family: 'AlexBrush-Regular', cursive;
   font-size: 24px;
   display: block;
   margin-top: 5px;

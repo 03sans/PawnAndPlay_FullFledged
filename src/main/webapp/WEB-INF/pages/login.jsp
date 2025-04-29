@@ -3,11 +3,6 @@
 	
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    @font-face {
-  font-family: 'SortsMillGoudy';
-  src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
-}</style>
 <head>
   <meta charset="UTF-8">
   <title>Login</title>

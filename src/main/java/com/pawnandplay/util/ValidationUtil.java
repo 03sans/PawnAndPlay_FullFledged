@@ -1,6 +1,9 @@
 package com.pawnandplay.util;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.regex.Pattern;
+import jakarta.servlet.http.Part;
 
 public class ValidationUtil {
     
@@ -39,5 +42,22 @@ public class ValidationUtil {
     // Checks if the two passwords match
     public static boolean doPasswordsMatch(String password, String retypePassword) {
         return password != null && password.equals(retypePassword);
+    }
+    
+   // Validate if a Part's file extension matches with image extensions (jpg, jpeg, png, gif)
+    public static boolean isValidImageExtension(Part imagePart) {
+        if (imagePart == null || isNullOrEmpty(imagePart.getSubmittedFileName())) {
+            return false;
+        }
+        String fileName = imagePart.getSubmittedFileName().toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif");
+    }
+    
+    public static boolean isAgeAtLeast16(LocalDate dob) {
+        if (dob == null) {
+            return false;
+        }
+        LocalDate today = LocalDate.now();
+        return Period.between(dob, today).getYears() >= 16;
     }
 }

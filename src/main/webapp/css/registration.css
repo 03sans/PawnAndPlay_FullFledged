@@ -1,3 +1,10 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'SortsMillGoudy';
+  src: url('../resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   font-family: 'SortsMillGoudy', serif;
@@ -15,9 +22,9 @@ body {
 .registration-box {
   background-color: #f2ebdf;
   color: #334137;
-  padding: 2rem 3rem;
+  padding: 25px 48px;
   width: 90%;
-  max-width: 900px;
+  max-width: 750px;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.25);
   margin-bottom: 2rem;
@@ -65,17 +72,68 @@ form {
   color: #f2ebdf;
 }
 
-.form-button {
-  text-align: center;
+.chess-button-wrapper {
+  display: flex;
+  flex-direction: column; /* STACK everything vertically */
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 100%;
 }
 
-.form-button button {
-  padding: 0.6rem 2rem;
-  font-size: 1rem;
+.profile-and-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* space between profile photo and register button */
+  width: 100%;
+}
+
+.profile-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo label {
+  font-weight: bold;
+  font-size: 0.9rem; /* smaller label font size */
+  margin-bottom: 0.5rem;
+  color: #334137;
+}
+
+.profile-photo input {
   background-color: #334137;
   color: #f2ebdf;
   border: none;
   border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.chess-image {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.form-button {
+  flex: 1; /* 25% width */
+  display: flex;
+  justify-content: center;
+}
+
+.form-button button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px 20px;
+  background-color: #2E3A31;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-family: 'SortsMillGoudy', serif;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -84,19 +142,19 @@ form {
   background-color: #2b3630;
 }
 
-.chess-image {
-  width: 100%;
-  margin-top: 2rem;
-}
-
 .slogan-footer {
-  text-align: center;
-  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* space between text and image */
+  margin-bottom: 1rem;
   color: #CBB9A6;
   font-size: 1.1rem;
+  text-align: center;
+  flex-wrap: wrap; /* keeps layout responsive */
 }
 
 .dice-image {
-  margin-top: 1rem;
-  width: 120px;
+  width: 100px; /* smaller image */
+  height: auto;
 }

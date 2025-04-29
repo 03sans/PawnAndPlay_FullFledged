@@ -3,11 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-    @font-face {
-  font-family: 'SortsMillGoudy';
-  src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
-}</style>
     <meta charset="UTF-8">
     <title>Register</title>
     <link rel="stylesheet" type="text/css"
@@ -23,7 +18,7 @@
     <main class="registration-main">
     <section class="registration-box">
       <h1>NEW PLAYER? LET’S GET YOU SET UP!</h1>
-      <form action="${pageContext.request.contextPath}/register" method="post">
+      <form action="${pageContext.request.contextPath}/registration" method="post" enctype="multipart/form-data">
         <div class="form-row">
           <div class="form-group">
             <label>FIRST NAME</label>
@@ -38,7 +33,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>USERNAME</label>
-            <input type="text" name="username" required>
+            <input type="text" name="userName" required>
           </div>
           <div class="form-group">
             <label>EMAIL</label>
@@ -47,13 +42,14 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label>BIRTHDAY</label>
-            <input type="date" name="dob" required>
-          </div>
+          
           <div class="form-group">
             <label>PHONE</label>
             <input type="tel" name="number" required>
+          </div>
+          <div class="form-group">
+            <label>BIRTHDAY</label>
+            <input type="date" name="dob" required>
           </div>
         </div>
 
@@ -64,17 +60,29 @@
           </div>
           <div class="form-group">
             <label>RE-ENTER</label>
-            <input type="password" name="confirmPassword" required>
+            <input type="password" name="confirmpassword" required>
           </div>
         </div>
+  
+  <div class="chess-button-wrapper">
+  
+  <div class="profile-and-button">
+    <div class="profile-photo">
+      <label for="image">PROFILE PICTURE</label>
+      <input type="file" id="image" name="image">
+    </div>
 
-        <div class="form-button">
-          <button type="submit">LOGIN</button>
-        </div>
-      </form>
+    <div class="form-button">
+      <button type="submit">REGISTER</button>
+    </div>
+  </div>
 
-      <img src="${pageContext.request.contextPath}/resources/images/chess_pieces.png" alt="Chess Pieces" class="chess-image">
-    </section>
+  <img src="${pageContext.request.contextPath}/resources/images/chess_pieces.png" alt="Chess Pieces" class="chess-image">
+  
+</div>
+	</form>
+</section>
+
 
     <section class="slogan-footer">
       <p>START YOU STORY. ONE GAME AT A TIME!</p>

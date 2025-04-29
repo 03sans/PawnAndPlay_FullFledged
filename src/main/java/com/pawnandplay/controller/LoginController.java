@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
 			SessionUtil.setAttribute(req, "username", username); 
 			if (username.equals("admin")) {
 				CookiesUtil.addCookie(resp, "Role", "admin", 5 * 30);
-				resp.sendRedirect(req.getServletContext().getContextPath() +"/home"); // Redirect to /home
+				resp.sendRedirect(req.getServletContext().getContextPath() +"/about"); // Redirect to /about
 			} else {
 				CookiesUtil.addCookie(resp, "Role", "customer", 5 * 30);
 				System.out.println("Login successfull");

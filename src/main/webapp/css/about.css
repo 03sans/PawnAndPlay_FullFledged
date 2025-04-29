@@ -1,1 +1,126 @@
 @charset "UTF-8";
+
+ @font-face {
+            font-family: 'SortsMillGoudy';
+            src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+        }
+  @font-face {
+            font-family: 'AlexBrush-Regular';
+            src: url('${pageContext.request.contextPath}/resources/fonts/AlexBrush-Regular.ttf') format('truetype');
+        }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'SortsMillGoudy', serif;
+  background-color: #334137;
+  color: #DDD6C9;
+}
+
+.home-container {
+  padding: 2rem 1rem;
+  background-color: #334137;
+  color: #DDD6C9;
+  font-family: 'SortsMillGoudy', serif;
+}
+
+/* About Section Layout */
+.about-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.about-left,
+.about-right {
+  flex: 1;
+  text-align: center;
+}
+
+.get-to-know-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.brand-name {
+  font-family: 'AlexBrush-Regular', cursive;
+  font-size: 1.8rem;
+  margin-top: 0.2rem;
+}
+
+.about-img,
+.dart-img {
+  width: 180px;
+  margin-top: 1rem;
+}
+
+/* Mission Box */
+.mission-box {
+  background-color: #EAE1D2;
+  color: #2F2F2F;
+  padding: 2rem;
+  max-width: 500px;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.mission-title {
+  font-family: 'AlexBrush-Regular', cursive;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* What We Offer Section */
+.offer-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.offer-title {
+  font-family: 'AlexBrush-Regular', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.offer-list {
+  list-style: none;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Who We Are Section */
+.who-section {
+  background-color: #EAE1D2;
+  color: #2F2F2F;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.who-title {
+  font-family: 'AlexBrush-Regular', cursive;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.who-text {
+  font-size: 1rem;
+  line-height: 1.6;
+}

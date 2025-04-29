@@ -7,9 +7,14 @@
 }</style>
     
 <footer class="footer">
+    <div class="footer-profile">
+        <a href="${pageContext.request.contextPath}/profile"><img src="${pageContext.request.contextPath}/resources/images/iconnn.png" alt="Profile" class="icon" /></a>
+    </div>
+    
     <div class="footer-left">
         © ALL RIGHTS RESERVED
     </div>
+    
     <div class="footer-right">
         <span>JOIN THE FUN</span>
         <a href="#"><img src="${pageContext.request.contextPath}/resources/images/instapng.png" alt="Instagram" class="footer-icon" /></a>
