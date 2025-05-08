@@ -1,12 +1,10 @@
 @charset "UTF-8";
 
-/* Load custom font */
 @font-face {
-    font-family: 'SortsMillGoudy';
-    src: url('../fonts/SortsMillGoudy-Regular.ttf') format('truetype');
-}
+            font-family: 'SortsMillGoudy';
+            src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+        }
 
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -19,33 +17,43 @@ body {
     color: #DDD6C9;
 }
 
-/* Profile container */
+/* Profile Container */
 .profile-container {
-    background-color: #334137;
-    padding: 50px 20px;
-    text-align: center;
-    min-height: 90vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 40px 20px;
 }
 
-/* Welcome text */
+/* Card Layout */
+.profile-card {
+    background-color: #2a3530;
+    padding: 40px 30px;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Welcome Text */
 .welcome-text {
     font-size: 2rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
+    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+    color: #EEE4D9;
 }
 
-/* Profile picture */
+/* Profile Picture */
 .profile-picture {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 25px;
     border-radius: 50%;
     overflow: hidden;
+    border: 4px solid #190c08;
     background-color: #D8C7B8;
-    margin-bottom: 30px;
 }
 
 .profile-picture img {
@@ -54,32 +62,28 @@ body {
     object-fit: cover;
 }
 
-/* Profile info section */
+/* Profile Info */
 .profile-info {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .profile-info p {
-    margin: 10px 0;
-    font-size: 1.2rem;
+    margin: 12px 0;
+    font-size: 1.1rem;
     letter-spacing: 1px;
+    color: #F4EDE1;
 }
 
-/* Update Profile Button */
+/* Update Button */
 .update-button {
-    background-color: #DDD6C9;
-    color: #334137;
+    background-color: #334137;
+    color: #DDD6C9;
     border: none;
     border-radius: 25px;
     padding: 12px 40px;
     font-size: 1.1rem;
     letter-spacing: 1.5px;
     margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.update-button:hover {
-    background-color: #c9b8a7;
-    transform: scale(1.05);
+    cursor: pointer;   
+    font-family: 'SortsMillGoudy', serif !important;
 }

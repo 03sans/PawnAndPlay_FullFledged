@@ -142,11 +142,12 @@ public class RegisterController extends HttpServlet {
 		return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "User");
 	}
 
-	private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
-			throws ServletException, IOException {
-		req.setAttribute("success", message);
-		req.getRequestDispatcher(redirectPage).forward(req, resp);
-	}
+    private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
+            throws IOException {
+        req.getSession().setAttribute("success", message); // Use session to persist across redirect
+        resp.sendRedirect(req.getContextPath() + "/login");
+    }
+    
     private void handleError(HttpServletRequest req, HttpServletResponse resp, String message) throws ServletException, IOException {
         req.setAttribute("error", message);
         req.setAttribute("firstName", req.getParameter("firstName"));

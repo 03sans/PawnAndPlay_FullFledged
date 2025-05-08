@@ -25,8 +25,8 @@ body {
 .login-main {
   display: flex;
   justify-content: space-between;
-  padding: 52px;
   background-color: #2E3A31;
+  padding: 100px 52px;
 }
 
 .login-box {

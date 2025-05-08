@@ -48,10 +48,18 @@ public class CookiesUtil {
 	 * @param response the HttpServletResponse to add the deletion cookie to
 	 * @param name     the name of the cookie to delete
 	 */
-	public static void deleteCookie(HttpServletResponse response, String name) {
-		Cookie cookie = new Cookie(name, null);
-		cookie.setMaxAge(0);
-		cookie.setPath("/"); // Make cookie available to the entire application
-		response.addCookie(cookie);
+	public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
+	    if (request.getCookies() != null) {
+	        for (Cookie c : request.getCookies()) {
+	            System.out.println("Existing cookie: " + c.getName() + " = " + c.getValue());
+	        }
+	    }
+
+	    Cookie cookie = new Cookie(name, "");
+	    cookie.setMaxAge(0);
+	    cookie.setPath("/"); // match your original setCookie path
+	    cookie.setHttpOnly(true);
+	    response.addCookie(cookie);
+	    System.out.println("Deleted cookie: " + name);
 	}
 }

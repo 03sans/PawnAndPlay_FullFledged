@@ -29,7 +29,7 @@ public class LoginService {
             return null;
         }
 
-        String query = "SELECT username, password FROM User WHERE username = ?";
+        String query = "SELECT Username, Password FROM User WHERE Username = ?";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             stmt.setString(1, userModel.getUsername());
             ResultSet result = stmt.executeQuery();
@@ -48,16 +48,28 @@ public class LoginService {
     public UserModel getUserDetails(String username) {
         UserModel user = null;
         try (Connection conn = DbConfig.getDbConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE Username = ?")) {
 
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 user = new UserModel();
-                user.setUsername(rs.getString("username"));
-                user.setEmail(rs.getString("email"));
-                user.setNumber(rs.getString("number"));
+                user.setUserId(rs.getString("UserID"));
+                user.setFirstName(rs.getString("Firstname"));
+                user.setLastName(rs.getString("Lastname"));
+                user.setUsername(rs.getString("Username"));
+                user.setEmail(rs.getString("Email"));
+                user.setNumber(rs.getString("Phone")); 
+                user.setPassword(rs.getString("Password")); 
+                user.setImage(rs.getString("image"));
+                
+             // If the image is null or empty, set to a default image.
+                String image = rs.getString("image");
+                if (image == null || image.isEmpty()) {
+                    image = "resources/images/default.jpg"; // Set your default image path
+                }
+                user.setImage(image);
 
                 String dobString = rs.getString("dob");
                 if (dobString != null) {
@@ -68,8 +80,6 @@ public class LoginService {
                         user.setDob(null);
                     }
                 }
-
-                user.setImage(rs.getString("image"));
             }
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -84,13 +94,13 @@ public class LoginService {
             return null;
         }
 
-        String query = "SELECT role FROM User WHERE username = ?";
+        String query = "SELECT Role FROM User WHERE Username = ?";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             stmt.setString(1, username);
             ResultSet result = stmt.executeQuery();
 
             if (result.next()) {
-                return result.getString("role");
+                return result.getString("Role");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,8 +110,8 @@ public class LoginService {
     }
 
     private boolean validatePassword(ResultSet result, UserModel userModel) throws SQLException {
-        String dbUsername = result.getString("username");
-        String dbPassword = result.getString("password");
+        String dbUsername = result.getString("Username");
+        String dbPassword = result.getString("Password");
 
         String decryptedPassword = PasswordUtil.decrypt(dbPassword, dbUsername);
 

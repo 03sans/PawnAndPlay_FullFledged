@@ -16,29 +16,30 @@
 <jsp:include page="header.jsp" />
 
 <div class="profile-container">
-    <h2 class="welcome-text">
-        LET’S ROLL THE DICE, <c:out value="${user.username}" />
-    </h2>
+    <div class="profile-card">
+        <h2 class="welcome-text">🎲 LET’S ROLL THE DICE, <c:out value="${user.username}" /></h2>
 
-    <div class="profile-picture">
-        <c:choose>
-            <c:when test="${not empty user.image}">
-                <img src="${pageContext.request.contextPath}/${user.image}" alt="Profile Picture" id="profile-image">
-            </c:when>
-            <c:otherwise>
-                <img src="${pageContext.request.contextPath}/resources/images/default-profile.png" alt="Default Profile Picture" id="profile-image">
-            </c:otherwise>
-        </c:choose>
-    </div>
+        <div class="profile-picture">
+            <%-- <c:choose>
+                <c:when test="${not empty user.image}">
+                    <img src="${pageContext.request.contextPath}/src/main/webapp/resources/images/${user.image}" alt="Profile Picture" id="profile-image">
+                </c:when>
+            </c:choose> --%>
+             <img src="${pageContext.request.contextPath}/resources/images/${user.image}" alt="Profile Picture" id="profile-image">
+            
+        </div> 
 
-    <div class="profile-info">
-        <p id="user-username"><strong>USERNAME:</strong> <c:out value="${user.username}" /></p>
-        <p id="user-email"><strong>EMAIL:</strong> <c:out value="${user.email}" /></p>
-        <p id="user-phone"><strong>PHONE:</strong> <c:out value="${user.number}" /></p>
-        <p id="user-birthday"><strong>BIRTHDAY:</strong> <c:out value="${user.dob}" /></p>
-    </div>
-
+        <div class="profile-info">
+        
+            <p><strong>USERNAME:</strong> <c:out value="${user.username}" /></p>
+            <p><strong>EMAIL:</strong> <c:out value="${user.email}" /></p>
+            <p><strong>PHONE:</strong> <c:out value="${user.number}" /></p>
+            <p><strong>BIRTHDAY:</strong> <c:out value="${user.dob}" /></p>
+        </div>
+		<form action="${pageContext.request.contextPath}/updateprofile" method="get">
     <button class="update-button">UPDATE PROFILE</button>
+</form>
+    </div>
 </div>
 
 <jsp:include page="footer.jsp" />

@@ -24,7 +24,6 @@
     height: 20px;
     object-fit: contain;
 }
-
 .brand {
     font-weight: bold;
 }
@@ -36,14 +35,19 @@
 }
 
 .nav-item {
+	padding: 0.4em .6em;
+	background: none;
+	border:0;
+	cursor:pointer;
     text-decoration: none;
     color: #334137;
     font-size: 14px;
     letter-spacing: 2px;
+    font-family: 'SortsMillGoudy', serif !important;
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .nav-item:hover {
-    color: #1f2620;
+    color: rgb(255,255,255);
     transform: scale(1.05);
 }

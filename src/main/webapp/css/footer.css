@@ -1,6 +1,11 @@
 @charset "UTF-8";
 
 .footer {
+	position: fixed;       /* Fix it to the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +14,6 @@
     font-family: 'SortsMillGoudy', serif;
     font-size: 16px;
     border-top: 2px solid #2b322b;
-    position: relative;
 }
 
 .footer-profile {
@@ -39,13 +43,24 @@
 }
 
 .icon, .footer-icon {
-    height: 24px;
-    width: 24px;
+    height: 24px !important;
+    width: 24px !important;
+    min-width: 24px;
+    min-height: 24px;
+    max-width: 24px;
+    max-height: 24px;
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
+    padding: 0.4em .6em;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block; 
 }
 
 .footer-icon:hover,
 .icon:hover {
-    transform: scale(1.1);
+    color: rgb(255,255,255);
+    transform: scale(1.05);
 }
