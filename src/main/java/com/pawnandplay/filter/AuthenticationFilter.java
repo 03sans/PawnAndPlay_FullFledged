@@ -29,6 +29,7 @@ public class AuthenticationFilter implements Filter {
 	private static final String UPDATEPROFILE = "/updateprofile";
 	private static final String LOGOUT = "/logout";
 	private static final String PRODUCTS = "/products";
+	private static final String OPERATIONS = "/operations";
 	
 
 	@Override
@@ -65,7 +66,7 @@ public class AuthenticationFilter implements Filter {
 		        System.out.println("Redirecting to dashboard due to login or registration");
 		        res.sendRedirect(req.getContextPath() + DASHBOARD);
 		    } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(CONTACT)
-		            || uri.endsWith(PRODUCTS)) {
+		            || uri.endsWith(PRODUCTS)|| uri.endsWith(OPERATIONS)) {
 		        System.out.println("Allowing access to the requested URI");
 		        chain.doFilter(request, response);
 		    } else {
