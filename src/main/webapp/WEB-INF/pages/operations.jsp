@@ -20,7 +20,42 @@
 <div class="container">
 
 	<h1>Admin Operations</h1>
+	
+	<!-- VIEW ALL GAMES -->
+	<section class="table-section">
+		<h2>All Games</h2>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Level</th>
+					<th>Genre</th>
+					<th>Age</th>
+					<th>Price</th>
+					<th>Stock</th>
+					<th>Brand</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="game" items="${games}">
+					<tr>
+						<td>${game.gameID}</td>
+						<td>${game.gamename}</td>
+						<td>${game.level}</td>
+						<td>${game.genre}</td>
+						<td>${game.age}</td>
+						<td>${game.price}</td>
+						<td>${game.stock}</td>
+						<td>${game.brand}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</section>
+	
 
+	<div class="form-row">
 	<!-- ADD GAME -->
 	<section class="form-section">
 		<h2>Add Game</h2>
@@ -63,68 +98,37 @@
 			<button type="submit">Delete Game</button>
 		</form>
 	</section>
+</div>
 
-	<!-- SEARCH BY STOCK -->
-	<section class="form-section">
-		<h2>Search Game by Stock</h2>
-		<form method="post" action="operations">
-			<input type="hidden" name="action" value="search" />
-			<input type="number" name="stock" placeholder="Stock Quantity" required />
-			<button type="submit">Search</button>
-		</form>
+<!-- SEARCH -->
+<section class="form-section">
+	<h2>Search Game by Stock</h2>
+	<form method="post" action="operations">
+		<input type="hidden" name="action" value="search" />
+		<input type="number" name="stock" placeholder="Stock Quantity" required />
+		<button type="submit">Search</button>
+	</form>
 
-		<c:if test="${not empty searchResult}">
-			<div class="search-result">
-				<h3>Search Result</h3>
-				<p><strong>Game ID:</strong> ${searchResult.gameID}</p>
-				<p><strong>Name:</strong> ${searchResult.gamename}</p>
-				<p><strong>Level:</strong> ${searchResult.level}</p>
-				<p><strong>Genre:</strong> ${searchResult.genre}</p>
-				<p><strong>Age:</strong> ${searchResult.age}</p>
-				<p><strong>Price:</strong> ${searchResult.price}</p>
-				<p><strong>Stock:</strong> ${searchResult.stock}</p>
-				<p><strong>Brand:</strong> ${searchResult.brand}</p>
-			</div>
-		</c:if>
+	<c:if test="${not empty searchResult}">
+		<div class="search-result">
+			<h3>Search Result</h3>
+			<p><strong>Game ID:</strong> ${searchResult.gameID}</p>
+			<p><strong>Name:</strong> ${searchResult.gamename}</p>
+			<p><strong>Level:</strong> ${searchResult.level}</p>
+			<p><strong>Genre:</strong> ${searchResult.genre}</p>
+			<p><strong>Age:</strong> ${searchResult.age}</p>
+			<p><strong>Price:</strong> ${searchResult.price}</p>
+			<p><strong>Stock:</strong> ${searchResult.stock}</p>
+			<p><strong>Brand:</strong> ${searchResult.brand}</p>
+		</div>
+	</c:if>
 
-		<c:if test="${not empty notFound}">
-			<p class="not-found">${notFound}</p>
-		</c:if>
-	</section>
+	<c:if test="${not empty notFound}">
+		<p class="not-found">${notFound}</p>
+	</c:if>
+</section>
 
-	<!-- VIEW ALL GAMES -->
-	<section class="table-section">
-		<h2>All Games</h2>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Level</th>
-					<th>Genre</th>
-					<th>Age</th>
-					<th>Price</th>
-					<th>Stock</th>
-					<th>Brand</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="game" items="${games}">
-					<tr>
-						<td>${game.gameID}</td>
-						<td>${game.gamename}</td>
-						<td>${game.level}</td>
-						<td>${game.genre}</td>
-						<td>${game.age}</td>
-						<td>${game.price}</td>
-						<td>${game.stock}</td>
-						<td>${game.brand}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</section>
-
+	
 </div>
 
 <jsp:include page="footer.jsp"/>
