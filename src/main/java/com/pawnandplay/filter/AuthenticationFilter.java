@@ -60,32 +60,35 @@ public class AuthenticationFilter implements Filter {
 		System.out.println(isLoggedIn);
 		System.out.println("here");
 		if (isLoggedIn && "admin".equals(userRole)) {
-			// Admin is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
-				res.sendRedirect(req.getContextPath() + ABOUT);
-			} else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)|| uri.endsWith(ABOUT)|| uri.endsWith(CONTACT)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath() + DASHBOARD);
-			}
+		    System.out.println("Admin logged in");
+		    if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
+		        System.out.println("Redirecting to dashboard due to login or registration");
+		        res.sendRedirect(req.getContextPath() + DASHBOARD);
+		    } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(CONTACT)
+		            || uri.endsWith(PRODUCTS)) {
+		        System.out.println("Allowing access to the requested URI");
+		        chain.doFilter(request, response);
+		    } else {
+		        System.out.println("Redirecting to dashboard from fallback condition");
+		        res.sendRedirect(req.getContextPath() + DASHBOARD);
+		    }
 		} else if (isLoggedIn && "customer".equals(userRole)) {
-			// Customer is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
-				res.sendRedirect(req.getContextPath() + HOME);
-			} else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT)|| uri.endsWith(CONTACT) || 
-					uri.endsWith(PROFILE)|| uri.endsWith(UPDATEPROFILE)|| uri.endsWith(PRODUCTS)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath() + HOME);
-			}
+		    System.out.println("Customer logged in");
+		    if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION)) {
+		        res.sendRedirect(req.getContextPath() + HOME);
+		    } else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(CONTACT) || 
+		            uri.endsWith(PROFILE) || uri.endsWith(UPDATEPROFILE) || uri.endsWith(PRODUCTS)) {
+		        chain.doFilter(request, response);
+		    } else {
+		        res.sendRedirect(req.getContextPath() + HOME);
+		    }
 		} else {
-			// Not logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT)|| uri.endsWith(CONTACT)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath() + LOGIN);
-				//chain.doFilter(request, response);
-			}
+		    System.out.println("Not logged in");
+		    if (uri.endsWith(LOGIN) || uri.endsWith(REGISTRATION) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(CONTACT)) {
+		        chain.doFilter(request, response);
+		    } else {
+		        res.sendRedirect(req.getContextPath() + LOGIN);
+		    }
 		}
 	}
 

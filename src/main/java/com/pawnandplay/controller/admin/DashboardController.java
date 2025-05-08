@@ -1,41 +1,55 @@
 package com.pawnandplay.controller.admin;
 
+import com.pawnandplay.dao.DashboardDAO;
+import com.pawnandplay.model.UserModel;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
-/**
- * Servlet implementation class DashboardController
- */
-@WebServlet("/DashboardController")
+@WebServlet(asyncSupported = true, urlPatterns = {"/dashboard"})
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DashboardController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private DashboardDAO dashboardDAO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public DashboardController() {
+		super();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
+	public void init() throws ServletException {
+		dashboardDAO = new DashboardDAO();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			// Fetch stats
+			List<UserModel> recentUsers = dashboardDAO.getRecentUsers(5);
+			double totalRevenue = dashboardDAO.getTotalRevenue();
+			int totalUsers = dashboardDAO.getTotalUsers();
+			int totalOrders = dashboardDAO.getTotalOrders();
+			int totalGames = dashboardDAO.getTotalGames();
+
+			// Set attributes to pass to the dashboard JSP
+			request.setAttribute("recentUsers", recentUsers);
+			request.setAttribute("totalRevenue", totalRevenue);
+			request.setAttribute("totalUsers", totalUsers);
+			request.setAttribute("totalOrders", totalOrders);
+			request.setAttribute("totalGames", totalGames);
+
+			request.getRequestDispatcher("/WEB-INF/pages/dashboard.jsp").forward(request, response);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Something went wrong loading dashboard data.");
+			request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
+		}
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

@@ -1,1 +1,136 @@
 @charset "UTF-8";
+
+@font-face {
+    font-family: 'SortsMillGoudy';
+    src: url('${pageContext.request.contextPath}/resources/fonts/SortsMillGoudy-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AlexBrush-Regular';
+    src: url('${pageContext.request.contextPath}/resources/fonts/AlexBrush-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: 'SortsMillGoudy', serif;
+    background-color: #334137;
+    color: #DDD6C9;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
+
+.dashboard-container h1 {
+    font-family: 'SortsMillGoudy', cursive;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #DDD6C9;
+}
+
+h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #DDD6C9;
+    font-family: 'SortsMillGoudy', serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    background-color: #3F4F44;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th,
+table td {
+    padding: 12px 20px;
+    text-align: left;
+}
+
+table thead {
+    background-color: #4F5E53;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #3A473E;
+}
+
+table th {
+    font-weight: bold;
+    color: #F5F2E7;
+}
+
+table td {
+    color: #E8E5DB;
+}
+
+.stats-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.stat-box {
+    background-color: #E8E5DB;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #3F4F44;
+    font-family: 'AlexBrush-Regular', cursive;
+}
+
+.stat-box p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3F4F44;
+}
+
+.operations-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.operations-section h2 {
+    font-family: 'SortsMillGoudy', cursive;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #DDD6C9;
+}
+
+.operations-button {
+    background-color: #DDD6C9;
+    color: #334137;
+    border-radius: 25px;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'SortsMillGoudy', serif !important;
+}
+
+.operations-button:hover {
+    background-color: #E6DED1;
+    transform: scale(1.05);
+}

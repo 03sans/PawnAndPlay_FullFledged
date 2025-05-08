@@ -19,7 +19,7 @@ request.setAttribute("currentUser", currentUser);
         <a href="${contextPath}/home" class="nav-item">HOME</a>
         <a href="${contextPath}/products" class="nav-item">PRODUCTS</a>
         <c:if test="${currentUser == 'admin'}">
-    <a href="${contextPath}/products" class="nav-item">DASHBOARD</a>
+    <a href="${contextPath}/dashboard" class="nav-item">DASHBOARD</a>
 		</c:if>
         <a href="${contextPath}/about" class="nav-item">ABOUT</a>
         <a href="${contextPath}/contact" class="nav-item">CONTACT</a>
