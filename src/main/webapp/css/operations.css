@@ -18,6 +18,19 @@ body {
     padding: 0;
 }
 
+.result-message {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.result-message.success {
+    color: green;
+}
+
+.result-message.error {
+    color: red;
+}
+
 .container {
     padding: 40px;
     max-width: 1200px;

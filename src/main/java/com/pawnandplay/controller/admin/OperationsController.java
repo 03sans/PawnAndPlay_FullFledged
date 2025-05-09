@@ -36,49 +36,61 @@ public class OperationsController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String resultMessage = "";
 
 		switch (action) {
 			case "add":
-				handleAdd(request);
+				resultMessage = handleAdd(request);
 				break;
 			case "update":
-				handleUpdate(request);
+				resultMessage = handleUpdate(request);
 				break;
 			case "delete":
-				handleDelete(request);
+				resultMessage = handleDelete(request);
 				break;
 			case "search":
 				handleSearch(request);
 				break;
 		}
 
+		// Add result message to request
+		request.setAttribute("resultMessage", resultMessage);
+		
+		// Reload the games list
 		List<GamesModel> games = dao.getAllGames();
 		request.setAttribute("games", games);
 		request.getRequestDispatcher("/WEB-INF/pages/operations.jsp").forward(request, response);
 	}
 
-	private void handleAdd(HttpServletRequest request) {
+	private String handleAdd(HttpServletRequest request) {
 		GamesModel game = extractGameFromRequest(request, false);
-		dao.addGame(game);
+		String resultMessage = dao.addGame(game);
+		return resultMessage;
 	}
 
-	private void handleUpdate(HttpServletRequest request) {
+	private String handleUpdate(HttpServletRequest request) {
 		GamesModel game = extractGameFromRequest(request, true);
-		dao.updateGame(game);
+		String resultMessage = dao.updateGame(game);
+		return resultMessage;
 	}
 
-	private void handleDelete(HttpServletRequest request) {
+	private String handleDelete(HttpServletRequest request) {
 		int gameID = Integer.parseInt(request.getParameter("gameID"));
-		dao.deleteGame(gameID);
+		String resultMessage = dao.deleteGame(gameID);
+		return resultMessage;
 	}
 
 	private void handleSearch(HttpServletRequest request) {
-		int stock = Integer.parseInt(request.getParameter("stock"));
-		GamesModel game = dao.binarySearchByStock(stock);
-		if (game != null) {
-			request.setAttribute("searchResult", game);
-		} else {
-			request.setAttribute("notFound", "Game with stock " + stock + " not found.");
+		try {
+			int stock = Integer.parseInt(request.getParameter("stock"));
+			GamesModel game = dao.binarySearchByStock(stock);
+			if (game != null) {
+				request.setAttribute("searchResult", game);
+			} else {
+				request.setAttribute("notFound", "Game with stock " + stock + " not found.");
+			}
+		} catch (NumberFormatException e) {
+			request.setAttribute("notFound", "Invalid stock input.");
 		}
 	}
 

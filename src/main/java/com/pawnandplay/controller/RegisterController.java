@@ -17,6 +17,10 @@ import com.pawnandplay.util.PasswordUtil;
 import com.pawnandplay.util.ValidationUtil;
 import com.pawnandplay.util.ImageUtil;
 
+/**
+* @author 23048503 Sanskriti Agrahari
+*/
+
 @WebServlet(asyncSupported = true, urlPatterns = { "/registration" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -25,53 +29,56 @@ public class RegisterController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final ImageUtil imageUtil = new ImageUtil();
-	private final RegisterService registerService = new RegisterService();
+    private final RegisterService registerService = new RegisterService();
 
+    // Handles GET request to show registration form
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/pages/registration.jsp").forward(request, response);
     }
 
+    // Handles POST request for user registration
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-        	System.out.println(52);
+            // Validate input fields
             String validationMessage = validateRegistrationForm(req);
             if (validationMessage != null) {
-                System.out.println("Validation failed: " + validationMessage); // Add this line
                 handleError(req, resp, validationMessage);
                 return;
             }
 
-            System.out.println(50);
+            // Extract and construct user model
             UserModel userModel = extractUserModel(req, resp);
             Boolean isAdded = registerService.addUser(userModel);
 
+            // Handle registration result
             if (isAdded == null) {
-				handleError(req, resp, "Our server is under maintenance. Please try again later!");
-			} else if (isAdded) {
-				try {
-					if (image(req)) {
-						handleSuccess(req, resp, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
-					} else {
-						handleError(req, resp, "Could not upload the image. Please try again later!");
-					}
-				} catch (IOException | ServletException e) {
-					handleError(req, resp, "An error occurred while uploading the image. Please try again later!");
-					e.printStackTrace(); // Log the exception
-				}
-			} else {
-				handleError(req, resp, "Could not register your account. Please try again later!");
-			}
-		} catch (Exception e) {
-			handleError(req, resp, "An unexpected error occurred. Please try again later!");
-			e.printStackTrace(); // Log the exception
-		}
+                handleError(req, resp, "Our server is under maintenance. Please try again later!");
+            } else if (isAdded) {
+                try {
+                    // Attempt to upload the image
+                    if (image(req)) {
+                        handleSuccess(req, resp, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
+                    } else {
+                        handleError(req, resp, "Could not upload the image. Please try again later!");
+                    }
+                } catch (IOException | ServletException e) {
+                    handleError(req, resp, "An error occurred while uploading the image. Please try again later!");
+                    e.printStackTrace(); // Log the exception for debugging
+                }
+            } else {
+                handleError(req, resp, "Could not register your account. Please try again later!");
+            }
+        } catch (Exception e) {
+            handleError(req, resp, "An unexpected error occurred. Please try again later!");
+            e.printStackTrace(); // Log unexpected exceptions
+        }
     }
 
+    // Validates form inputs and returns a message if validation fails, or null if all is valid
     private String validateRegistrationForm(HttpServletRequest req) {
-    	System.out.println(51);
-    	String firstName = req.getParameter("firstName");
+        String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String username = req.getParameter("userName");
         String email = req.getParameter("email");
@@ -80,6 +87,7 @@ public class RegisterController extends HttpServlet {
         String password = req.getParameter("password");
         String retypePassword = req.getParameter("confirmpassword");
 
+        // Check for required fields
         if (ValidationUtil.isNullOrEmpty(firstName)) return "First name is required.";
         if (ValidationUtil.isNullOrEmpty(lastName)) return "Last name is required.";
         if (ValidationUtil.isNullOrEmpty(username)) return "Username is required.";
@@ -89,6 +97,7 @@ public class RegisterController extends HttpServlet {
         if (ValidationUtil.isNullOrEmpty(password)) return "Password is required.";
         if (ValidationUtil.isNullOrEmpty(retypePassword)) return "Please retype the password.";
 
+        // Validate date format
         LocalDate dob;
         try {
             dob = LocalDate.parse(dobStr);
@@ -96,6 +105,7 @@ public class RegisterController extends HttpServlet {
             return "Invalid date format. Please use YYYY-MM-DD.";
         }
 
+        // Format and rule validations
         if (!ValidationUtil.isAlphanumericStartingWithLetter(username))
             return "Username must start with a letter and contain only alphanumeric characters.";
         if (!ValidationUtil.isValidEmail(email))
@@ -109,6 +119,7 @@ public class RegisterController extends HttpServlet {
         if (!ValidationUtil.isAgeAtLeast16(dob))
             return "You must be at least 16 years old to register.";
 
+        // Validate image
         try {
             Part image = req.getPart("image");
             if (!ValidationUtil.isValidImageExtension(image))
@@ -120,6 +131,7 @@ public class RegisterController extends HttpServlet {
         return null;
     }
 
+    // Extracts form data and constructs the UserModel
     private UserModel extractUserModel(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
@@ -129,33 +141,41 @@ public class RegisterController extends HttpServlet {
         LocalDate dob = LocalDate.parse(req.getParameter("dob"));
         String password = req.getParameter("password");
 
+        // Encrypt password
         password = PasswordUtil.encrypt(username, password);
-        
+
+        // Process uploaded image
         Part image = req.getPart("image");
         String imageUrl = imageUtil.getImageNameFromPart(image);
 
         return new UserModel(firstName, lastName, username, email, number, dob, password, imageUrl);
     }
 
+    // Handles image upload and returns true if successful
     private boolean image(HttpServletRequest req) throws IOException, ServletException {
-		Part image = req.getPart("image");
-		return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "User");
-	}
+        Part image = req.getPart("image");
+        return imageUtil.uploadImage(image, req.getServletContext().getRealPath("/"), "User");
+    }
 
+    // Handles successful registration
     private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
             throws IOException {
-        req.getSession().setAttribute("success", message); // Use session to persist across redirect
+        req.getSession().setAttribute("success", message); // Set success message for the next page
         resp.sendRedirect(req.getContextPath() + "/login");
     }
-    
+
+    // Handles registration errors and repopulates the form
     private void handleError(HttpServletRequest req, HttpServletResponse resp, String message) throws ServletException, IOException {
         req.setAttribute("error", message);
+
+        // Refill the form fields
         req.setAttribute("firstName", req.getParameter("firstName"));
         req.setAttribute("lastName", req.getParameter("lastName"));
         req.setAttribute("username", req.getParameter("userName"));
         req.setAttribute("email", req.getParameter("email"));
         req.setAttribute("number", req.getParameter("number"));
         req.setAttribute("dob", req.getParameter("dob"));
+
         req.getRequestDispatcher("/WEB-INF/pages/registration.jsp").forward(req, resp);
     }
 }

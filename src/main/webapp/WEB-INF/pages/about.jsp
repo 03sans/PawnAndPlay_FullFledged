@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +18,12 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"/>
+	
+	<c:if test="${not empty sessionScope.successMsg}">
+    <p class="success-message">${sessionScope.successMsg}</p>
+    <c:remove var="successMsg" scope="session" />
+</c:if>
+
 	<div class="home-container">
   <section class="about-section">
     <div class="about-left">

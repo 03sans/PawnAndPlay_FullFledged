@@ -21,6 +21,12 @@ body {
   color: #DDD6C9;
 }
 
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 .home-container {
   padding: 1rem 1rem;
   background-color: #334137;

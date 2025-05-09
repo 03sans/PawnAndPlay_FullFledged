@@ -22,6 +22,16 @@ body {
   color: #1F1F1F;
 }
 
+.success-message {
+    color: green;
+    background-color: #e0ffe0;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid green;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 .login-main {
   display: flex;
   justify-content: space-between;

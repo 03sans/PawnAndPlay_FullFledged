@@ -20,6 +20,11 @@
 <div class="container">
 
 	<h1>Admin Operations</h1>
+
+	<!-- Display result message -->
+	<c:if test="${not empty resultMessage}">
+		<p class="result-message">${resultMessage}</p>
+	</c:if>
 	
 	<!-- VIEW ALL GAMES -->
 	<section class="table-section">
@@ -53,82 +58,82 @@
 			</tbody>
 		</table>
 	</section>
-	
 
 	<div class="form-row">
-	<!-- ADD GAME -->
+		<!-- ADD GAME -->
+		<section class="form-section">
+			<h2>Add Game</h2>
+			<form method="post" action="operations">
+				<input type="hidden" name="action" value="add" />
+				<input type="text" name="gamename" placeholder="Game Name" required />
+				<input type="text" name="level" placeholder="Level" required />
+				<input type="text" name="genre" placeholder="Genre" required />
+				<input type="number" name="age" placeholder="Age" required />
+				<input type="number" step="0.01" name="price" placeholder="Price" required />
+				<input type="number" name="stock" placeholder="Stock" required />
+				<input type="text" name="brand" placeholder="Brand" required />
+				<button type="submit">Add Game</button>
+			</form>
+		</section>
+
+		<!-- UPDATE GAME -->
+		<section class="form-section">
+			<h2>Update Game</h2>
+			<form method="post" action="operations">
+				<input type="hidden" name="action" value="update" />
+				<input type="number" name="gameID" placeholder="Game ID" required />
+				<input type="text" name="gamename" placeholder="Game Name" required />
+				<input type="text" name="level" placeholder="Level" required />
+				<input type="text" name="genre" placeholder="Genre" required />
+				<input type="number" name="age" placeholder="Age" required />
+				<input type="number" step="0.01" name="price" placeholder="Price" required />
+				<input type="number" name="stock" placeholder="Stock" required />
+				<input type="text" name="brand" placeholder="Brand" required />
+				<button type="submit">Update Game</button>
+			</form>
+		</section>
+
+		<!-- DELETE GAME -->
+		<section class="form-section">
+			<h2>Delete Game</h2>
+			<form method="post" action="operations">
+				<input type="hidden" name="action" value="delete" />
+				<input type="number" name="gameID" placeholder="Game ID" required />
+				<button type="submit">Delete Game</button>
+			</form>
+		</section>
+	</div>
+
+	<!-- SEARCH -->
 	<section class="form-section">
-		<h2>Add Game</h2>
+		<h2>Search Game by Stock</h2>
 		<form method="post" action="operations">
-			<input type="hidden" name="action" value="add" />
-			<input type="text" name="gamename" placeholder="Game Name" required />
-			<input type="text" name="level" placeholder="Level" required />
-			<input type="text" name="genre" placeholder="Genre" required />
-			<input type="number" name="age" placeholder="Age" required />
-			<input type="number" step="0.01" name="price" placeholder="Price" required />
-			<input type="number" name="stock" placeholder="Stock" required />
-			<input type="text" name="brand" placeholder="Brand" required />
-			<button type="submit">Add Game</button>
+			<input type="hidden" name="action" value="search" />
+			<input type="number" name="stock" placeholder="Stock Quantity" required />
+			<button type="submit">Search</button>
 		</form>
+
+		<!-- Search Results -->
+		<c:if test="${not empty searchResult}">
+			<div class="search-result">
+				<h3>Search Result</h3>
+				<p><strong>Game ID:</strong> ${searchResult.gameID}</p>
+				<p><strong>Name:</strong> ${searchResult.gamename}</p>
+				<p><strong>Level:</strong> ${searchResult.level}</p>
+				<p><strong>Genre:</strong> ${searchResult.genre}</p>
+				<p><strong>Age:</strong> ${searchResult.age}</p>
+				<p><strong>Price:</strong> ${searchResult.price}</p>
+				<p><strong>Stock:</strong> ${searchResult.stock}</p>
+				<p><strong>Brand:</strong> ${searchResult.brand}</p>
+			</div>
+		</c:if>
+
+		<!-- Not Found -->
+		<c:if test="${not empty notFound}">
+			<p class="not-found">${notFound}</p>
+		</c:if>
 	</section>
 
-	<!-- UPDATE GAME -->
-	<section class="form-section">
-		<h2>Update Game</h2>
-		<form method="post" action="operations">
-			<input type="hidden" name="action" value="update" />
-			<input type="number" name="gameID" placeholder="Game ID" required />
-			<input type="text" name="gamename" placeholder="Game Name" required />
-			<input type="text" name="level" placeholder="Level" required />
-			<input type="text" name="genre" placeholder="Genre" required />
-			<input type="number" name="age" placeholder="Age" required />
-			<input type="number" step="0.01" name="price" placeholder="Price" required />
-			<input type="number" name="stock" placeholder="Stock" required />
-			<input type="text" name="brand" placeholder="Brand" required />
-			<button type="submit">Update Game</button>
-		</form>
-	</section>
-
-	<!-- DELETE GAME -->
-	<section class="form-section">
-		<h2>Delete Game</h2>
-		<form method="post" action="operations">
-			<input type="hidden" name="action" value="delete" />
-			<input type="number" name="gameID" placeholder="Game ID" required />
-			<button type="submit">Delete Game</button>
-		</form>
-	</section>
-</div>
-
-<!-- SEARCH -->
-<section class="form-section">
-	<h2>Search Game by Stock</h2>
-	<form method="post" action="operations">
-		<input type="hidden" name="action" value="search" />
-		<input type="number" name="stock" placeholder="Stock Quantity" required />
-		<button type="submit">Search</button>
-	</form>
-
-	<c:if test="${not empty searchResult}">
-		<div class="search-result">
-			<h3>Search Result</h3>
-			<p><strong>Game ID:</strong> ${searchResult.gameID}</p>
-			<p><strong>Name:</strong> ${searchResult.gamename}</p>
-			<p><strong>Level:</strong> ${searchResult.level}</p>
-			<p><strong>Genre:</strong> ${searchResult.genre}</p>
-			<p><strong>Age:</strong> ${searchResult.age}</p>
-			<p><strong>Price:</strong> ${searchResult.price}</p>
-			<p><strong>Stock:</strong> ${searchResult.stock}</p>
-			<p><strong>Brand:</strong> ${searchResult.brand}</p>
-		</div>
-	</c:if>
-
-	<c:if test="${not empty notFound}">
-		<p class="not-found">${notFound}</p>
-	</c:if>
-</section>
-
-	
 </div>
 
 <jsp:include page="footer.jsp"/>

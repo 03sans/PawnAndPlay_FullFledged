@@ -4,7 +4,8 @@ import java.sql.*;
 import java.util.*;
 
 import com.pawnandplay.model.GamesModel;
-import com.pawnandplay.config.DbConfig; // Utility class to get DB connection
+import com.pawnandplay.config.DbConfig;
+import com.pawnandplay.util.ValidationUtil;
 
 public class OperationsDAO {
 
@@ -18,8 +19,32 @@ public class OperationsDAO {
         }
     }
 
-    // Add Game
-    public boolean addGame(GamesModel game) {
+    // ------------------ Check if Game Exists ------------------
+    public boolean gameExists(int gameID) {
+        String sql = "SELECT 1 FROM Game WHERE GameID=?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, gameID);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // returns true if a row exists
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ------------------ Add Game ------------------
+    public String addGame(GamesModel game) {
+        // Validate fields
+        if (!ValidationUtil.isValidGamename(game.getGamename()) ||
+            !ValidationUtil.isValidLevel(game.getLevel()) ||
+            !ValidationUtil.isValidGenre(game.getGenre()) ||
+            !ValidationUtil.isValidAge(String.valueOf(game.getAge())) ||
+            !ValidationUtil.isValidPrice(String.valueOf(game.getPrice())) ||
+            !ValidationUtil.isValidStock(String.valueOf(game.getStock())) ||
+            !ValidationUtil.isValidBrand(game.getBrand())) {
+            return "Validation failed. Please check all input fields.";
+        }
+
         String sql = "INSERT INTO Game (Gamename, Level, Genre, Age, Price, Stock, Brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, game.getGamename());
@@ -31,15 +56,29 @@ public class OperationsDAO {
             stmt.setString(7, game.getBrand());
 
             int rows = stmt.executeUpdate();
-            return rows > 0;
+            return rows > 0 ? "Game added successfully." : "Failed to add game.";
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle better in production
-            return false;
+            e.printStackTrace();
+            return "Error occurred while adding game.";
         }
     }
 
-    // Update Game by GameID
-    public boolean updateGame(GamesModel game) {
+    // ------------------ Update Game ------------------
+    public String updateGame(GamesModel game) {
+        if (!gameExists(game.getGameID())) {
+            return "Game with ID " + game.getGameID() + " does not exist.";
+        }
+
+        if (!ValidationUtil.isValidGamename(game.getGamename()) ||
+            !ValidationUtil.isValidLevel(game.getLevel()) ||
+            !ValidationUtil.isValidGenre(game.getGenre()) ||
+            !ValidationUtil.isValidAge(String.valueOf(game.getAge())) ||
+            !ValidationUtil.isValidPrice(String.valueOf(game.getPrice())) ||
+            !ValidationUtil.isValidStock(String.valueOf(game.getStock())) ||
+            !ValidationUtil.isValidBrand(game.getBrand())) {
+            return "Validation failed. Please check all input fields.";
+        }
+
         String sql = "UPDATE Game SET Gamename=?, Level=?, Genre=?, Age=?, Price=?, Stock=?, Brand=? WHERE GameID=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, game.getGamename());
@@ -52,30 +91,34 @@ public class OperationsDAO {
             stmt.setInt(8, game.getGameID());
 
             int rows = stmt.executeUpdate();
-            return rows > 0;
+            return rows > 0 ? "Game updated successfully." : "Failed to update game.";
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return "Error occurred while updating game.";
         }
     }
 
-    // Delete Game by GameID
-    public boolean deleteGame(int gameID) {
+    // ------------------ Delete Game ------------------
+    public String deleteGame(int gameID) {
+        if (!gameExists(gameID)) {
+            return "Game with ID " + gameID + " does not exist.";
+        }
+
         String sql = "DELETE FROM Game WHERE GameID=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, gameID);
             int rows = stmt.executeUpdate();
-            return rows > 0;
+            return rows > 0 ? "Game deleted successfully." : "Failed to delete game.";
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return "Error occurred while deleting game.";
         }
     }
 
-    // View All Games
+    // ------------------ Get All Games ------------------
     public List<GamesModel> getAllGames() {
         List<GamesModel> gamesList = new ArrayList<>();
-        String sql = "SELECT * FROM Game ORDER BY Stock"; // Sorted by stock for binary search
+        String sql = "SELECT * FROM Game ORDER BY Stock";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -97,7 +140,7 @@ public class OperationsDAO {
         return gamesList;
     }
 
-    // Binary Search by Stock
+    // ------------------ Binary Search by Stock ------------------
     public GamesModel binarySearchByStock(int stock) {
         List<GamesModel> games = getAllGames(); // Must be sorted by Stock
         int low = 0;
@@ -115,6 +158,6 @@ public class OperationsDAO {
                 high = mid - 1;
             }
         }
-        return null; // Not found
+        return null;
     }
 }

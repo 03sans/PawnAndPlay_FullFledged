@@ -9,6 +9,11 @@ import java.sql.ResultSet;
 import com.pawnandplay.config.DbConfig;
 import com.pawnandplay.model.UserModel;
 
+
+/**
+ * 
+ * @author 23048503 Sanskriti Agrahari
+ */
 public class UpdateProfileService {
 
 	public Boolean updateUser(UserModel userModel, String oldUsername) {
