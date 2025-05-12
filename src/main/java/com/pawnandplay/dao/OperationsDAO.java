@@ -69,15 +69,16 @@ public class OperationsDAO {
             return "Game with ID " + game.getGameID() + " does not exist.";
         }
 
-        if (!ValidationUtil.isValidGamename(game.getGamename()) ||
-            !ValidationUtil.isValidLevel(game.getLevel()) ||
-            !ValidationUtil.isValidGenre(game.getGenre()) ||
-            !ValidationUtil.isValidAge(String.valueOf(game.getAge())) ||
-            !ValidationUtil.isValidPrice(String.valueOf(game.getPrice())) ||
-            !ValidationUtil.isValidStock(String.valueOf(game.getStock())) ||
-            !ValidationUtil.isValidBrand(game.getBrand())) {
-            return "Validation failed. Please check all input fields.";
-        }
+        if (!ValidationUtil.isValidGameID(String.valueOf(game.getGameID())) ||
+        	    !ValidationUtil.isValidGamename(game.getGamename()) ||
+        	    !ValidationUtil.isValidLevel(game.getLevel()) ||
+        	    !ValidationUtil.isValidGenre(game.getGenre()) ||
+        	    !ValidationUtil.isValidAge(String.valueOf(game.getAge())) ||
+        	    !ValidationUtil.isValidPrice(String.valueOf(game.getPrice())) ||
+        	    !ValidationUtil.isValidStock(String.valueOf(game.getStock())) ||
+        	    !ValidationUtil.isValidBrand(game.getBrand())) {
+        	    return "Validation failed. Please check all input fields.";
+        	}
 
         String sql = "UPDATE Game SET Gamename=?, Level=?, Genre=?, Age=?, Price=?, Stock=?, Brand=? WHERE GameID=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {

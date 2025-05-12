@@ -38,12 +38,12 @@ public class LogoutController extends HttpServlet {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("Role".equals(cookie.getName())) {
-                    cookie.setValue("");
-                    cookie.setPath(req.getContextPath());
-                    cookie.setMaxAge(0); // Set expiration to remove it
-                    resp.addCookie(cookie); // Add modified cookie to response
-                }
+            	if ("Role".equals(cookie.getName())) {
+            	    cookie.setValue("");
+            	    cookie.setPath("/"); // Make sure it matches original set path
+            	    cookie.setMaxAge(0);
+            	    resp.addCookie(cookie);
+            	}
             }
         }
 
