@@ -24,7 +24,7 @@
   <section class="registration-box">
     <h1>UPDATE YOUR PROFILE HOW YOU WANT</h1>
 
-    <form action="${pageContext.request.contextPath}/updateprofile" method="post">
+    <form action="${pageContext.request.contextPath}/updateprofile" method="post" enctype="multipart/form-data">
       <div class="form-row">
         <div class="form-group">
           <label>FIRST NAME</label>
@@ -59,10 +59,17 @@
       </div>
 
       <div class="chess-button-wrapper">
+      <div class="form-row">
+    <div class="form-group">
+      <label>PROFILE PICTURE</label>
+      <input type="file" name="ProfileImage" accept="image/*">
+    </div>
+  </div>
         <div class="form-button">
           <button type="submit">UPDATE</button>
         </div>
       </div>
+      
     </form>
   </section>
 </main>

@@ -8,17 +8,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import jakarta.servlet.http.Part;
 
 import com.pawnandplay.model.UserModel;
 import com.pawnandplay.service.UpdateProfileService;
 import com.pawnandplay.util.PasswordUtil;
 import com.pawnandplay.util.SessionUtil;
+import jakarta.servlet.annotation.MultipartConfig;
+import com.pawnandplay.util.ImageUtil;
 
 /**
  * 
  * @author 23048503 Sanskriti Agrahari
  */
-
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 1,  // 1MB
+	    maxFileSize = 1024 * 1024 * 5,        // 5MB
+	    maxRequestSize = 1024 * 1024 * 10     // 10MB
+	)
 @WebServlet(asyncSupported = true, urlPatterns = { "/updateprofile" })
 public class UpdateProfileController extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -40,23 +47,39 @@ public class UpdateProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Retrieve the current username from session
             String currentUsername = (String) SessionUtil.getAttribute(req, "username");
 
-            // Get the new password or use the existing one if the field is left blank
             String password = req.getParameter("Password");
             String finalPassword;
-
             if (password != null && !password.isEmpty()) {
                 finalPassword = PasswordUtil.encrypt(currentUsername, password);
             } else {
-                // Do not re-encrypt, just reuse the already encrypted password
                 finalPassword = editprofileService.getExistingPassword(currentUsername);
             }
 
-            // Extract user input and build updated UserModel
+            Part filePart = req.getPart("profileImage");
+            String imageUrl = "";
+
+            if (filePart != null && filePart.getSize() > 0) {
+                ImageUtil imageUtil = new ImageUtil();
+
+                // Extract file name
+                String fileName = imageUtil.getImageNameFromPart(filePart);
+                String saveFolder = "images"; 
+
+                // Upload the image
+                boolean uploaded = imageUtil.uploadImage(filePart, getServletContext().getRealPath("/"), saveFolder);
+
+                if (uploaded) {
+                	imageUrl = fileName; // Only save the file name
+                } else {
+                    handleError(req, resp, "Profile image upload failed.");
+                    return;
+                }
+            }
+
             try {
-                UserModel userModel = extractUserModel(req, finalPassword);
+                UserModel userModel = extractUserModel(req, finalPassword, imageUrl);
                 Boolean isUpdated = editprofileService.updateUser(userModel, currentUsername);
 
                 if (isUpdated == null) {
@@ -64,18 +87,14 @@ public class UpdateProfileController extends HttpServlet {
                 } else if (!isUpdated) {
                     handleError(req, resp, "Could not update your profile. Please try again later!");
                 } else {
-                    // Update session if username was changed
                     SessionUtil.setAttribute(req, "username", userModel.getUsername());
                     resp.sendRedirect(req.getContextPath() + "/profile");
                 }
-
             } catch (IllegalArgumentException e) {
-                // Input validation failed
                 handleError(req, resp, e.getMessage());
             }
 
         } catch (Exception e) {
-            // Catch-all for unexpected errors
             handleError(req, resp, "An unexpected error occurred. Please try again later!");
             e.printStackTrace();
         }
@@ -85,7 +104,7 @@ public class UpdateProfileController extends HttpServlet {
      * Extracts user input fields from the request and constructs a UserModel.
      * Validates required fields and date format.
      */
-    private UserModel extractUserModel(HttpServletRequest req, String finalPassword) throws Exception {
+    private UserModel extractUserModel(HttpServletRequest req, String finalPassword, String imageUrl) throws Exception {
         String firstName = req.getParameter("Firstname");
         String lastName = req.getParameter("Lastname");
         String username = req.getParameter("Username");
@@ -107,7 +126,10 @@ public class UpdateProfileController extends HttpServlet {
             }
         }
 
-        String imageUrl = ""; // Optional: Handle image uploading here
+        
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            imageUrl = req.getParameter("existingImage"); // Fallback
+        }
 
         return new UserModel(firstName, lastName, username, email, number, dob, finalPassword, imageUrl);
     }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="now" class="java.util.Date" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,12 +21,14 @@
         <h2 class="welcome-text">🎲 LET’S ROLL THE DICE, <c:out value="${user.username}" /></h2>
 
         <div class="profile-picture">
-            <%-- <c:choose>
-                <c:when test="${not empty user.image}">
-                    <img src="${pageContext.request.contextPath}/src/main/webapp/resources/images/${user.image}" alt="Profile Picture" id="profile-image">
-                </c:when>
-            </c:choose> --%>
-             <img src="${pageContext.request.contextPath}/resources/images/${user.image}" alt="Profile Picture" id="profile-image">
+           <c:choose>
+    <c:when test="${not empty user.image}">
+        <img src="${pageContext.request.contextPath}/resources/images/${user.image}?v=${now.time}" alt="Profile Picture" id="profile-image">
+    </c:when>
+    <c:otherwise>
+        <img src="${pageContext.request.contextPath}/resources/images/default.png" alt="Default Profile Picture" id="profile-image">
+    </c:otherwise>
+</c:choose>
             
         </div> 
 
